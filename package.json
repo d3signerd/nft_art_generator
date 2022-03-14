@@ -1,7 +1,7 @@
 {
-  "name": "hashlips_art_engine",
-  "version": "1.1.1",
-  "description": "HashLips Art Engine is a tool used to create multiple different instances of artworks based on provided layers.",
+  "name": "nft_generator",
+  "version": "1.0.0",
+  "description": "Fork of HashLips Art Engine -A tool used to create multiple different instances of artworks based on provided layers.",
   "main": "index.js",
   "bin": "index.js",
   "pkg": {
@@ -22,7 +22,7 @@
     "generate_metadata": "node utils/generate_metadata.js",
     "convert": "node utils/convert_metadata.js"
   },
-  "author": "Daniel Eugene Botha (HashLips)",
+  "author": "Kellen Styler | Daniel Eugene Botha (HashLips)",
   "license": "MIT",
   "dependencies": {
     "canvas": "^2.8.0",
