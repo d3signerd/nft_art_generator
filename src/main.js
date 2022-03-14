@@ -5,23 +5,29 @@ const sha1 = require(`${basePath}/node_modules/sha1`);
 const { createCanvas, loadImage } = require(`${basePath}/node_modules/canvas`);
 const buildDir = `${basePath}/build`;
 const layersDir = `${basePath}/layers`;
+const config = process.argv.slice(2)[0] ?? "config";
 const {
-  format,
-  baseUri,
-  description,
+  attributeSeperator,
+  attributeSpace,
   background,
-  uniqueDnaTorrance,
-  layerConfigurations,
-  rarityDelimiter,
-  shuffleLayerConfigurations,
+  baseUri,
   debugLogs,
+  description,
   extraMetadata,
-  text,
+  format,
+  gif,
+  layerConfigurations,
   namePrefix,
   network,
+  pixelFormat,
+  preview,
+  preview_gif,
+  rarityDelimiter,
+  shuffleLayerConfigurations,
   solanaMetadata,
-  gif,
-} = require(`${basePath}/src/config.js`);
+  text,
+  uniqueDnaTorrance,
+} = require(`${basePath}/src/${config}.js`);
 const canvas = createCanvas(format.width, format.height);
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = format.smoothing;
@@ -139,7 +145,7 @@ const addMetadata = (_dna, _edition) => {
     date: dateTime,
     ...extraMetadata,
     attributes: attributesList,
-    compiler: "HashLips Art Engine",
+    compiler: "Kellen Styler",
   };
   if (network == NETWORK.sol) {
     tempMetadata = {
@@ -173,9 +179,17 @@ const addMetadata = (_dna, _edition) => {
 
 const addAttributes = (_element) => {
   let selectedElement = _element.layer.selectedElement;
-  attributesList.push({
-    trait_type: _element.layer.name,
-    value: selectedElement.name,
+
+  const attributes = selectedElement.name.split(" ").flatMap((attribute) => ({
+    trait: (attribute.split(`${attributeSeperator}`)[1] ? attribute.split(`${attributeSeperator}`)[0] : _element.layer.name).replace(`${attributeSpace}`, " "),
+    value: (attribute.split(`${attributeSeperator}`)[1] ?? selectedElement.name ).replace(`${attributeSpace}`, " "),
+  }));
+
+  attributes.forEach((attribute) => {
+    attributesList.push({
+      trait_type: attribute.trait,
+      value: attribute.value,
+    });
   });
 };
 

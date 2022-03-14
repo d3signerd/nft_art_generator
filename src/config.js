@@ -100,23 +100,28 @@ const preview_gif = {
   imageName: "preview.gif",
 };
 
+const attributeSeperator = "_";
+const attributeSpace = "%";
+
 module.exports = {
-  format,
-  baseUri,
-  description,
+  attributeSeperator,
+  attributeSpace,
   background,
-  uniqueDnaTorrance,
-  layerConfigurations,
-  rarityDelimiter,
-  preview,
-  shuffleLayerConfigurations,
+  baseUri,
   debugLogs,
+  description,
   extraMetadata,
-  pixelFormat,
-  text,
+  format,
+  gif,
+  layerConfigurations,
   namePrefix,
   network,
-  solanaMetadata,
-  gif,
+  pixelFormat,
+  preview,
   preview_gif,
+  rarityDelimiter,
+  shuffleLayerConfigurations,
+  solanaMetadata,
+  text,
+  uniqueDnaTorrance,
 };
