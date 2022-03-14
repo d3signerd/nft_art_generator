@@ -50,7 +50,7 @@ const uniqueDnaTorrance = 10000;
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 3,
+    growEditionSizeTo: 1500,
     layersOrder: [
       { name: "Backgrounds" },
       { name: "Outlines Square" },
@@ -63,7 +63,7 @@ const layerConfigurations = [
     ],
   },
   {
-    growEditionSizeTo: 6,
+    growEditionSizeTo: 3000,
     layersOrder: [
       { name: "Backgrounds" },
       { name: "Outlines Angled" },
