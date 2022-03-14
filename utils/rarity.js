@@ -2,7 +2,12 @@ const basePath = process.cwd();
 const fs = require("fs");
 const layersDir = `${basePath}/layers`;
 
-const { layerConfigurations } = require(`${basePath}/src/config.js`);
+const config = process.argv.slice(2)[0] ?? "config";
+const { 
+  attributeSeperator,
+  attributeSpace,
+  layerConfigurations 
+} = require(`${basePath}/src/${config}.js`);
 
 const { getElements } = require("../src/main.js");
 
@@ -15,30 +20,38 @@ let rarityData = [];
 
 // intialize layers to chart
 layerConfigurations.forEach((config) => {
-  let layers = config.layersOrder;
 
+  let layers = config.layersOrder;
   layers.forEach((layer) => {
-    // get elements for each layer
-    let elementsForLayer = [];
+
+    // Get elements for each layer
     let elements = getElements(`${layersDir}/${layer.name}/`);
     elements.forEach((element) => {
-      // just get name and weight for each element
-      let rarityDataElement = {
-        trait: element.name,
-        weight: element.weight.toFixed(0),
-        occurrence: 0, // initialize at 0
-      };
-      elementsForLayer.push(rarityDataElement);
+
+      const attributes = element.name.split(" ").flatMap((attribute) => ({
+        trait: (attribute.split(`${attributeSeperator}`)[1] ? attribute.split(`${attributeSeperator}`)[0] : _element.layer.name).replace(`${attributeSpace}`, " "),
+        value: (attribute.split(`${attributeSeperator}`)[1] ?? selectedElement.name ).replace(`${attributeSpace}`, " "),
+      }));
+
+      attributes.forEach((attribute) => {
+
+        let rarityDataElement = {
+          trait: attribute.value,
+          weight: element.weight.toFixed(0),
+          occurrence: 0,
+        };
+
+        // Check to add trait
+        if (!rarityData[attribute.trait]) {
+          rarityData[attribute.trait] = [];
+        }
+
+        // Check to add value
+        if (rarityData[attribute.trait].filter((element) => { return element.trait === rarityDataElement.trait }).length == 0) {
+          rarityData[attribute.trait].push(rarityDataElement);
+        }
+      });
     });
-    let layerName =
-      layer.options?.["displayName"] != undefined
-        ? layer.options?.["displayName"]
-        : layer.name;
-    // don't include duplicate layers
-    if (!rarityData.includes(layer.name)) {
-      // add elements for each layer to chart
-      rarityData[layerName] = elementsForLayer;
-    }
   });
 });
 

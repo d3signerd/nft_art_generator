@@ -2,13 +2,14 @@ const basePath = process.cwd();
 const { NETWORK } = require(`${basePath}/constants/network.js`);
 const fs = require("fs");
 
+const config = process.argv.slice(2)[0] ?? "config";
 const {
   baseUri,
   description,
   namePrefix,
   network,
   solanaMetadata,
-} = require(`${basePath}/src/config.js`);
+} = require(`${basePath}/src/${config}.js`);
 
 // read json data
 let rawdata = fs.readFileSync(`${basePath}/build/json/_metadata.json`);

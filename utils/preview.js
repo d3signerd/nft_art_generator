@@ -3,7 +3,8 @@ const fs = require("fs");
 const { createCanvas, loadImage } = require("canvas");
 const buildDir = `${basePath}/build`;
 
-const { preview } = require(`${basePath}/src/config.js`);
+const config = process.argv.slice(2)[0] ?? "config";
+const { preview } = require(`${basePath}/src/${config}.js`);
 
 // read json data
 const rawdata = fs.readFileSync(`${basePath}/build/json/_metadata.json`);

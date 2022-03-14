@@ -4,12 +4,13 @@ const { createCanvas, loadImage } = require("canvas");
 const basePath = process.cwd();
 const buildDir = `${basePath}/build/json`;
 const inputDir = `${basePath}/build/images`;
+const config = process.argv.slice(2)[0] ?? "config";
 const {
   format,
   namePrefix,
   description,
   baseUri,
-} = require(`${basePath}/src/config.js`);
+} = require(`${basePath}/src/${config}.js`);
 const console = require("console");
 const canvas = createCanvas(format.width, format.height);
 const ctx = canvas.getContext("2d");
